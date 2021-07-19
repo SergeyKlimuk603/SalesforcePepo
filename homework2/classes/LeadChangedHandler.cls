@@ -15,14 +15,17 @@ public class LeadChangedHandler extends TriggerHandler {
     protected override void afterDelete() {}
     protected override void afterUndelete() {}
     
-	 protected override void afterUpdate() {       
+	protected override void afterUpdate() { 
+        // Получаем список конвертированных измененных Leads
         List<LeadChanges> convertedChangedLeads = 
         	getConvertedChangedLeads((Map<Id, Lead>) Trigger.OldMap, (Map<Id, Lead>) Trigger.NewMap);
+        // Если полученный список не пустой то формируем PlatformEvent
         if (convertedChangedLeads.size() > 0) {
             createPlatformEvent(convertedChangedLeads);  
         }  
     }
     
+    // Получаем список конвертированных измененных Leads
     private List<LeadChanges> getConvertedChangedLeads(Map<Id, Lead> oldMap, Map<Id, Lead> newMap) {
         // Список объектов для передачи изменений сделанных в Leads
         List<LeadChanges> convertedChangedLeads = new List<LeadChanges>();
