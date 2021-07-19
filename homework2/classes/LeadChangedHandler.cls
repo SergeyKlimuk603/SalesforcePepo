@@ -18,7 +18,9 @@ public class LeadChangedHandler extends TriggerHandler {
 	 protected override void afterUpdate() {       
         List<LeadChanges> convertedChangedLeads = 
         	getConvertedChangedLeads((Map<Id, Lead>) Trigger.OldMap, (Map<Id, Lead>) Trigger.NewMap);
-        createPlatformEvent(convertedChangedLeads);  
+        if (convertedChangedLeads.size() > 0) {
+            createPlatformEvent(convertedChangedLeads);  
+        }  
     }
     
     private List<LeadChanges> getConvertedChangedLeads(Map<Id, Lead> oldMap, Map<Id, Lead> newMap) {
