@@ -1,0 +1,3 @@
+UpdateAccountFromLeadSchedule updateAccount = new UpdateAccountFromLeadSchedule();
+String sch = '0 0 * * * ?';
+System.debug(System.schedule('ApdateAccountFromLeadBatch', sch, updateAccount));
