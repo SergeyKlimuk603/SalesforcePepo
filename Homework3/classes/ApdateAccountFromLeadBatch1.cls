@@ -24,6 +24,9 @@ public class ApdateAccountFromLeadBatch1 implements Database.Batchable<sObject>{
             }
             mistake.Failed_Records_Ids__c = failedRecordsIds;
         	mistake.Failed_Records_Messages__c = failedRecordsMessages;
+            mistake.Message__c = dmlExs.getMessage();
+            mistake.StackTrace__c = dmlExs .getStackTraceString();
+            
             Database.insert(mistake, false);
 /*            
             System.debug('DmlException сработал');
