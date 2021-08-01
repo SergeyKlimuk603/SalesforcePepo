@@ -1,0 +1,3 @@
+LeadCountryFromPhoneBatch scheduledBatch = new LeadCountryFromPhoneBatch();
+String cronExp = '0 0 * * * ?';
+System.schedule('UpdateCountryFromPhone', cronExp, scheduledBatch);
