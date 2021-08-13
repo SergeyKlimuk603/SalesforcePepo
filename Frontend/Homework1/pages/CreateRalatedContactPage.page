@@ -1,0 +1,17 @@
+<apex:page standardController="Account" extensions="MyContactController">
+    <apex:form >
+    	<apex:pageBlock title="Create related Contact" >
+            <apex:pageBlockSection columns="1"> 
+                <apex:pageMessages escape="false"/>
+                <apex:inputField value="{!cont.FirstName}"/>
+                <apex:inputField value="{!cont.LastName}"/>
+                <apex:inputField value="{!cont.Email}"/>
+                <apex:inputField value="{!cont.Phone}"/>
+                <apex:inputField value="{!cont.Birthdate}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveContact}" value="Save"/>
+            </apex:pageBlockButtons>
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>
