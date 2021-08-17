@@ -1,0 +1,7 @@
+<aura:component implements="flexipage:availableForRecordHome">
+    <aura:attribute name="description" type="String"/>
+    <lightning:input  label="Description" value="{!v.description}"/>
+    <aura:if isTrue="{!v.description}">
+		Description: {!v.description}
+    </aura:if>
+</aura:component>
