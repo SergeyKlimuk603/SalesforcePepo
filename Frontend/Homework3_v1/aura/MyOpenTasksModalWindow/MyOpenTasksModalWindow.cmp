@@ -1,0 +1,47 @@
+<aura:component controller="TasksCloseController">
+    
+    <aura:registerEvent name="closeModal" type="c:TaskModalResponseEvent"/>
+    <aura:registerEvent name="saveTaskStatus" type="c:TaskModalResponseEvent"/>
+    
+    <aura:attribute name="statusPicklist" type="List"/>
+    <aura:attribute name="selectedStatus" type="String" default="defaultStatus"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+	<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    	<div class="slds-modal__container">
+        	<!-- ###### MODAL BOX HEADER Start ######-->
+            <header class="slds-modal__header">
+                 <lightning:buttonIcon iconName="utility:close"
+                                       onclick="{! c.closeModal }"
+                                       alternativeText="close"
+                                       variant="bare-inverse"
+                                       class="slds-modal__close"/>
+                 <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Tasks Status</h2>
+            </header>
+            <!--###### MODAL BOX BODY Part Start######-->
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            	<lightning:select name="selectNewStatus"
+                                  label="Select new 'Status'" 
+                                  required="true"
+                                  value="{!v.selectedStatus}">
+                	<aura:iteration items="{!v.statusPicklist}" var="nextStatus">
+                        <option text="{!nextStatus}"/>
+                    </aura:iteration>
+                </lightning:select>        
+            </div>
+            <!--###### MODAL BOX FOOTER Part Start ######-->
+            <footer class="slds-modal__footer">
+            	<lightning:button variant="neutral" 
+                                  label="Cancel"
+                                  title="Cancel"
+                                  onclick="{! c.closeModal }"/>
+                <lightning:button variant="brand" 
+                                  label="Save"
+                                  title="Save"
+                                  onclick="{! c.saveTasksStatus }"/>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

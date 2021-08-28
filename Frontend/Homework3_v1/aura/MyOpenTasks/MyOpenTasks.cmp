@@ -1,0 +1,35 @@
+<aura:component controller="TasksCloseController" implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="tasksList" type="Task[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedRows" type="List"/>
+    <aura:attribute name="showModalWindow" type="Boolean" default="false"/>
+    <aura:attribute name="isButtonCompleteDisabled" type="Boolean" default="true"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:method name="reInit" action="{!c.init}"/>
+    <aura:handler name="closeModal" event="c:TaskModalResponseEvent"
+                  action="{!c.closeModal}"/>
+    <aura:handler name="saveTaskStatus" event="c:TaskModalResponseEvent"
+                  action="{!c.saveTaskStatus}"/>
+    
+    <lightning:card title="Not completed Tasks">
+    	<div class="slds-form slds-p-around_x-small">
+            <h1>Selected Tasks: {!v.selectedRows.length}</h1>
+    		<lightning:datatable data="{!v.tasksList}"
+                         	columns="{!v.columns}"
+                         	keyField="id"
+                         	hideCheckboxColumn="false"
+                            onrowselection="{!c.updateSelectedText}"/>
+            <br/>
+            <lightning:button class="slds-align_absolute-center"
+                              variant="base"
+                              label="Complete"
+                              title="Complete"
+                              disabled="{!v.isButtonCompleteDisabled}"
+                              onclick="{!c.handleComplete}"/>
+    	</div>
+    </lightning:card>
+    <aura:if isTrue="{!v.showModalWindow}">
+        <c:MyOpenTasksModalWindow/>
+    </aura:if>
+</aura:component>
