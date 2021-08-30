@@ -1,0 +1,71 @@
+<aura:component controller="OpenTasksController" implements="flexipage:availableForAllPageTypes">
+    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="pageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="5"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="totalRecords" type="Integer" default="0"/>
+    <aura:attribute name="recordStart" type="Integer" default="0"/>
+    <aura:attribute name="recordEnd" type="Integer" default="0"/>
+    <aura:attribute name="selectedRowsCount" type="Integer" default="0"/>
+    <aura:attribute name="runSpinner" type="Boolean" default="true"/>
+    <aura:attribute name="showModalWindow" type="Boolean" default="false"/>
+    
+    <aura:handler name="init" action="{!c.init}" value="{!this}"/>
+    <aura:handler name="closeModal" event="c:TaskModalResponseEvent"
+                  action="{!c.closeModal}"/>
+    <aura:handler name="saveTaskStatus" event="c:TaskModalResponseEvent"
+                  action="{!c.saveTaskStatus}"/>
+    
+    
+        <lightning:card title="Open Tasks">
+            
+            <aura:if isTrue="{!v.runSpinner}">
+                <lightning:spinner alternativeText="Loading" size="small" />
+            </aura:if>
+            
+        	<aura:if isTrue="{!v.totalRecords > 0}">        
+                <div class="slds-form slds-p-around_x-small">
+                    <h1>Selected Tasks: {!v.selectedRowsCount}</h1>
+                    <lightning:datatable aura:id="taskTable"
+                                         columns="{!v.columns}"
+                                         data="{!v.data}"
+                                         keyField="Id"
+                                         onrowaction="{!c.handleRowAction}"
+                                         onrowselection="{!c.rowSelected}"/>
+                    <div class="slds-clearfix">
+                        <div class="slds-page-header" role="banner">
+                            <div class="slds-float_right">
+                                <lightning:button label="Prev"
+                                                  iconName="utility:chevronleft"
+                                                  iconPosition="left"
+                                                  onclick="{!c.handlePrev}"
+                                                  disabled="{!v.pageNumber == 1}"/>
+                                <lightning:button label="Next"
+                                                  iconName="utility:chevronright"
+                                                  iconPosition="right"
+                                                  onclick="{!c.handleNext}"
+                                                  disabled="{!v.pageNumber == v.totalPages}"/>
+                            </div>
+                            <p>Page {!v.pageNumber} of {!v.totalPages} | Showing records {!v.recordStart}-{!v.recordEnd} of {!v.totalRecords} </p>
+                            <br/>
+                            <lightning:button class="slds-align_absolute-center"
+                                              label="Change status"
+                                              title="Change status"
+                                              disabled="{!v.selectedRowsCount == 0}"
+                                              onclick="{!c.handleChangeStatus}"/>                           
+                        </div>
+                    </div>
+                </div>
+            	<aura:set attribute="else">
+            		<div class="slds-form slds-p-around_x-small">
+   						<h1 class="slds-align_absolute-center">No open Tasks.</h1>
+                    </div>
+                </aura:set>
+            </aura:if>
+            <aura:if isTrue="{!v.showModalWindow}">
+        		<c:TaskStatusModalWindow/>
+    		</aura:if>
+        </lightning:card>	
+</aura:component>
