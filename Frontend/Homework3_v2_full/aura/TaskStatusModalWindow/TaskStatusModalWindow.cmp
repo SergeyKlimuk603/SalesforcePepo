@@ -33,7 +33,7 @@
                                   required="true"
                                   value="{!v.selectedStatus}"
                                   >
-                    <option>---None---</option>
+                    <option value="">---None---</option>
                 	<aura:iteration items="{!v.statusPicklist}" var="nextStatus">
                         <option text="{!nextStatus}"/>
                     </aura:iteration>
