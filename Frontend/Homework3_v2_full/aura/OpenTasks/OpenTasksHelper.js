@@ -28,7 +28,7 @@
             let state = response.getState();
             if (component.isValid() && state === "SUCCESS") {
             	let resultData = response.getReturnValue();
-                //console.log('OpenTasksHelper getOpenTasks resultData: ' + resultData.totalRecords);
+                
                 component.set("v.data", resultData.taskList);
                 component.set("v.pageNumber", resultData.pageNumber);
                 component.set("v.totalPages", Math.ceil(resultData.totalRecords/pageSize));
@@ -57,7 +57,6 @@
         for (let i = 0; i < selectedRows.length; i++) {
             selectedRowsId[i] = selectedRows[i].Id;
         }
-        console.log('OpenTasksHelper saveTaskStatus selectedRowsId: ' + JSON.stringify(selectedRowsId));
     	let action = component.get("c.updateStatusRecords");
         action.setParams({
             recordIds: selectedRowsId,

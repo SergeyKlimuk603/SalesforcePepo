@@ -19,53 +19,58 @@
                   action="{!c.saveTaskStatus}"/>
     
     
-        <lightning:card title="Open Tasks">
+    <lightning:card title="Open Tasks">
+        
+        <aura:if isTrue="{!v.runSpinner}">
+            <lightning:spinner alternativeText="Loading" size="small" />
+        </aura:if>
             
-            <aura:if isTrue="{!v.runSpinner}">
-                <lightning:spinner alternativeText="Loading" size="small" />
-            </aura:if>
-            
-        	<aura:if isTrue="{!v.totalRecords > 0}">        
-                <div class="slds-form slds-p-around_x-small">
-                    <h1>Selected Tasks: {!v.selectedRowsCount}</h1>
-                    <lightning:datatable aura:id="taskTable"
-                                         columns="{!v.columns}"
-                                         data="{!v.data}"
-                                         keyField="Id"
-                                         onrowaction="{!c.handleRowAction}"
-                                         onrowselection="{!c.rowSelected}"/>
-                    <div class="slds-clearfix">
-                        <div class="slds-page-header" role="banner">
-                            <div class="slds-float_right">
-                                <lightning:button label="Prev"
-                                                  iconName="utility:chevronleft"
-                                                  iconPosition="left"
-                                                  onclick="{!c.handlePrev}"
-                                                  disabled="{!v.pageNumber == 1}"/>
-                                <lightning:button label="Next"
-                                                  iconName="utility:chevronright"
-                                                  iconPosition="right"
-                                                  onclick="{!c.handleNext}"
-                                                  disabled="{!v.pageNumber == v.totalPages}"/>
-                            </div>
-                            <p>Page {!v.pageNumber} of {!v.totalPages} | Showing records {!v.recordStart}-{!v.recordEnd} of {!v.totalRecords} </p>
-                            <br/>
-                            <lightning:button class="slds-align_absolute-center"
-                                              label="Change status"
-                                              title="Change status"
-                                              disabled="{!v.selectedRowsCount == 0}"
-                                              onclick="{!c.handleChangeStatus}"/>                           
+      	<aura:if isTrue="{!v.totalRecords > 0}">        
+            <div class="slds-form slds-p-around_x-small">
+                    
+                <h1>Selected Tasks: {!v.selectedRowsCount}</h1>
+                <lightning:datatable aura:id="taskTable"
+                                     columns="{!v.columns}"
+                                     data="{!v.data}"
+                                     keyField="Id"
+                                     onrowaction="{!c.handleRowAction}"
+                                     onrowselection="{!c.rowSelected}"/>
+                    
+                <div class="slds-clearfix">
+                    <div class="slds-page-header" role="banner">
+                        <div class="slds-float_right">
+                            <lightning:button label="Prev"
+                                              iconName="utility:chevronleft"
+                                              iconPosition="left"
+                                              onclick="{!c.handlePrev}"
+                                              disabled="{!v.pageNumber == 1}"/>
+                            <lightning:button label="Next"
+                                              iconName="utility:chevronright"
+                                              iconPosition="right"
+                                              onclick="{!c.handleNext}"
+                                              disabled="{!v.pageNumber == v.totalPages}"/>
                         </div>
+                        <p>Page {!v.pageNumber} of {!v.totalPages} | Showing records {!v.recordStart}-{!v.recordEnd} of {!v.totalRecords} </p>
+                        <br/>
+                        <lightning:button class="slds-align_absolute-center"
+                                          label="Change status"
+                                          title="Change status"
+                                          disabled="{!v.selectedRowsCount == 0}"
+                                          onclick="{!c.handleChangeStatus}"/>                           
                     </div>
                 </div>
-            	<aura:set attribute="else">
-            		<div class="slds-form slds-p-around_x-small">
-   						<h1 class="slds-align_absolute-center">No open Tasks.</h1>
-                    </div>
-                </aura:set>
-            </aura:if>
-            <aura:if isTrue="{!v.showModalWindow}">
-        		<c:TaskStatusModalWindow/>
-    		</aura:if>
-        </lightning:card>	
+            </div>
+            
+        	<aura:set attribute="else">
+       			<div class="slds-form slds-p-around_x-small">
+					<h1 class="slds-align_absolute-center">No open Tasks.</h1>
+            	</div>
+        	</aura:set>                  	    
+        </aura:if>
+        
+        <aura:if isTrue="{!v.showModalWindow}">
+      		<c:TaskStatusModalWindow/>	
+   		</aura:if>
+            
+    </lightning:card>	
 </aura:component>

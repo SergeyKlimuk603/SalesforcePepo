@@ -5,7 +5,7 @@
     },
     
 	handleRowAction : function(component, event, helper) {
-		console.log("OpenTasksController handleRowAction selectedRowList" + component.get("v.selectedRowList"));
+		//TODO Action buttons
 	},
     
     rowSelected : function(component, event, helper) {

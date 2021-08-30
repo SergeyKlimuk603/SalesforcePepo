@@ -9,6 +9,10 @@
     
     saveTasksStatus : function(component, event, helper) {
 		let taskStatus = component.get('v.selectedStatus');
-        helper.saveTaskStatus(component, taskStatus);
+        if (taskStatus === "") {
+            //TODO Create ERROR message
+        } else {
+            helper.saveTaskStatus(component, taskStatus);
+        }
 	}
 })

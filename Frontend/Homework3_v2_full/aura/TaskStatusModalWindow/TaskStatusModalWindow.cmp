@@ -4,7 +4,7 @@
     <aura:registerEvent name="saveTaskStatus" type="c:TaskModalResponseEvent"/>
     
     <aura:attribute name="statusPicklist" type="List"/>
-    <aura:attribute name="selectedStatus" type="String" default="defaultStatus"/>
+    <aura:attribute name="selectedStatus" type="String" default=""/>
     <aura:attribute name="runSpinner" type="Boolean" default="true"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.init}"/>
@@ -31,7 +31,9 @@
             	<lightning:select name="selectNewStatus"
                                   label="Select new 'Status'" 
                                   required="true"
-                                  value="{!v.selectedStatus}">
+                                  value="{!v.selectedStatus}"
+                                  >
+                    <option>---None---</option>
                 	<aura:iteration items="{!v.statusPicklist}" var="nextStatus">
                         <option text="{!nextStatus}"/>
                     </aura:iteration>
@@ -46,7 +48,8 @@
                 <lightning:button variant="brand" 
                                   label="Save"
                                   title="Save"
-                                  onclick="{! c.saveTasksStatus }"/>
+                                  onclick="{! c.saveTasksStatus }"
+                                  disabled="{!v.selectedStatus == ''}"/>
             </footer>
         </div>
     </section>
